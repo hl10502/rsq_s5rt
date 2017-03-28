@@ -1,2 +1,2 @@
 #每周一0点1分执行
-0 1 0 ? * MON /opt/rsq_s5rt/rsq_s5rt_start.sh
+1 0 * * 1 /opt/rsq_s5rt/rsq_s5rt_start.sh
