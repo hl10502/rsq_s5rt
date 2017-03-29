@@ -19,8 +19,8 @@ def send_email(file_name):
     mail_pass = "yyyy"  # 发送者邮箱密码
 
     receiver = "zzzz@126.com" #收件者邮箱
-    creceiver = "aaaa@qq.com" #抄送这邮箱
-    receivers = "zzzz@126.com,aaaa@qq.com" #收件者、抄送这邮箱
+    creceiver = "aaaa@qq.com" #抄送者邮箱
+    receivers = "zzzz@126.com,aaaa@qq.com" #收件者、抄送者邮箱
 
     mail_msg = "S5跑团第"+ date.get_curr_week() +"周统计" + date.get_curdate2()
     #如名字所示Multipart就是分多个部分
