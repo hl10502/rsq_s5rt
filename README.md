@@ -16,4 +16,4 @@
 
 ## 代码分析
 
-请参考 ![http://www.hl10502.com/2017/03/29/python-rsq-s5rt/](http://www.hl10502.com/2017/03/29/python-rsq-s5rt/)
+请参考 [http://www.hl10502.com/2017/03/29/python-rsq-s5rt/](http://www.hl10502.com/2017/03/29/python-rsq-s5rt/)
