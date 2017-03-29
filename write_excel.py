@@ -40,7 +40,8 @@ def write_excel(jsondata, file_name):
 
     #只创建5-6列
     num = 5
-    #num = 11
+    #从第2周开始创建全部
+    #num = currweek_num - 2
     j = 0
     dictA = {}
     dictB = {}
