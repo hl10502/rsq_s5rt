@@ -40,6 +40,7 @@ def write_excel(jsondata, file_name):
 
     #只创建5-6列
     num = 5
+    #num = 11
     j = 0
     dictA = {}
     dictB = {}
@@ -69,9 +70,6 @@ def write_excel(jsondata, file_name):
     row_num = 2
     for kanbanCard in kanbanCardList:
         worksheet.write('A' + str(row_num), kanbanCard['name'])
-
-        # if kanbanCard['name'].find("332") == -1:
-        #     continue
 
         safflower_num = 0
         safflower_label = ""
@@ -108,15 +106,28 @@ def write_excel(jsondata, file_name):
                     isDone = kanbanItem['isDone']
                     value = ""
                     if isDone:
-                        value = '✓'
+                        #value = '✓'
+                        value = '✓✿✿'
                         #有完成周计划（打卡），小红花加1
                         safflower_num += 1
                         safflower_label += "✿"
-                    else:
-                        value = '未打卡'
 
+                        # 第2周打卡奖励4个小红花
+                        if i == 2:
+                            safflower_num += 4
+                            safflower_label += "✿✿✿✿"
+                            value += '✿✿✿✿'
+                    else:
+                        #value = '未打卡'
+                        value = '?✿'
+
+                        # 第2周建卡未打卡奖励2个小红花
+                        if i == 2:
+                            safflower_num += 2
+                            safflower_label += "✿✿"
+                            value += '✿✿'
                     if col:
-                        worksheet.write(col + str(row_num), value)
+                        worksheet.write(col + str(row_num), value, format)
 
                     #找到当前周，退出循环
                     break
