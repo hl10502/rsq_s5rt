@@ -16,6 +16,7 @@ def write_excel(jsondata, file_name):
     currweek = date.get_curr_week()
     currweek_num = int(currweek)
     #currweek_num = 14
+    #col_num为excel的列的数量，比周数多最后两列
     col_num = currweek_num + 2
 
     s5ptname = jsondata['name']
@@ -70,6 +71,7 @@ def write_excel(jsondata, file_name):
         dictB.setdefault(week_name, chr_str)
         num -= 1
 
+    #excel列数大于26，列序号从AA-AZ
     if col_num > 26:
         #从字母a开始
         for i in range(97, 123):
@@ -90,6 +92,7 @@ def write_excel(jsondata, file_name):
             dictB.setdefault(week_name, chr_str)
             num -= 1
 
+    #excel列数大于52，列序号从BA-BZ
     if col_num > 52:
         #从字母a开始
         for i in range(97, 123):
