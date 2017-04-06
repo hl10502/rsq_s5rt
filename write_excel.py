@@ -50,6 +50,7 @@ def write_excel(jsondata, file_name):
 
     safflower_col = ""
     safflower_num_col = ""
+    
     #从字母b开始
     for i in range(98, 123):
         chr_str = chr(i).upper()
