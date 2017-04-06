@@ -15,6 +15,8 @@ def write_excel(jsondata, file_name):
     #获取当前时间在年度内的第几个星期
     currweek = date.get_curr_week()
     currweek_num = int(currweek)
+    #currweek_num = 14
+    col_num = currweek_num + 2
 
     s5ptname = jsondata['name']
     kanbanCardList = jsondata['kanbanCardList']
@@ -39,34 +41,73 @@ def write_excel(jsondata, file_name):
     worksheet.set_column('A:A', 14) #定义A列宽度为20
 
     #只创建5-6列
-    num = 5
+    #num = 5
     #从第2周开始创建全部
-    #num = currweek_num - 2
+    num = currweek_num - 2
     j = 0
     dictA = {}
     dictB = {}
+
+    safflower_col = ""
+    safflower_num_col = ""
     #从字母b开始
-    for i in range(98,123):
+    for i in range(98, 123):
         chr_str = chr(i).upper()
-        week_name = "第" + str(currweek_num - num) + "周"
+        if num > 0:
+            week_name = "第" + str(currweek_num - num) + "周"
+        elif num == 0:
+            week_name = '小红花✿'
+            safflower_col = chr_str
+            worksheet.set_column(chr_str + ':'+ chr_str, 20) #定义列宽度为20
+        elif num == -1:
+            week_name = '小红花总计'
+            safflower_num_col = chr_str
+        else:
+            break
         worksheet.write(chr_str + '1', week_name)
         dictA.setdefault(chr_str, week_name)
         dictB.setdefault(week_name, chr_str)
-
         num -= 1
-        if num < 0:
-            j = i
-            break
 
+    if col_num > 26:
+        #从字母a开始
+        for i in range(97, 123):
+            chr_str = "A" + chr(i).upper()
+            if num > 0:
+                week_name = "第" + str(currweek_num - num) + "周"
+            elif num == 0:
+                week_name = '小红花✿'
+                safflower_col = chr_str
+                worksheet.set_column(chr_str + ':'+ chr_str, 20) #定义列宽度为20
+            elif num == -1:
+                week_name = '小红花总计'
+                safflower_num_col = chr_str
+            else:
+                break
+            worksheet.write(chr_str + '1', week_name)
+            dictA.setdefault(chr_str, week_name)
+            dictB.setdefault(week_name, chr_str)
+            num -= 1
 
-    str1 = chr(j).upper()
-    week_name1 = '小红花✿'
-    worksheet.write(str1 + '1', week_name1)
-    worksheet.set_column(str1 + ':'+ str1, 20) #定义列宽度为20
-
-    str2 = chr(j+1).upper()
-    week_name2 = '小红花总计'
-    worksheet.write(str2 + '1', week_name2)
+    if col_num > 52:
+        #从字母a开始
+        for i in range(97, 123):
+            chr_str = "B" + chr(i).upper()
+            if num > 0:
+                week_name = "第" + str(currweek_num - num) + "周"
+            elif num == 0:
+                week_name = '小红花✿'
+                safflower_col = chr_str
+                worksheet.set_column(chr_str + ':'+ chr_str, 20) #定义列宽度为20
+            elif num == -1:
+                week_name = '小红花总计'
+                safflower_num_col = chr_str
+            else:
+                break
+            worksheet.write(chr_str + '1', week_name)
+            dictA.setdefault(chr_str, week_name)
+            dictB.setdefault(week_name, chr_str)
+            num -= 1
 
     row_num = 2
     for kanbanCard in kanbanCardList:
@@ -134,8 +175,8 @@ def write_excel(jsondata, file_name):
                     break
 
             #小红花
-            worksheet.write(str1 + str(row_num), safflower_label, format)
-            worksheet.write(str2 + str(row_num), safflower_num, format)
+            worksheet.write(safflower_col + str(row_num), safflower_label, format)
+            worksheet.write(safflower_num_col + str(row_num), safflower_num, format)
 
         row_num += 1
 
