@@ -45,7 +45,7 @@ def write_excel(jsondata, file_name):
     #从第2周开始创建全部
     num = currweek_num - 2
     j = 0
-    dictA = {}
+    #dictA = {}
     dictB = {}
 
     safflower_col = ""
@@ -66,7 +66,7 @@ def write_excel(jsondata, file_name):
         else:
             break
         worksheet.write(chr_str + '1', week_name)
-        dictA.setdefault(chr_str, week_name)
+        #dictA.setdefault(chr_str, week_name)
         dictB.setdefault(week_name, chr_str)
         num -= 1
 
@@ -86,7 +86,7 @@ def write_excel(jsondata, file_name):
             else:
                 break
             worksheet.write(chr_str + '1', week_name)
-            dictA.setdefault(chr_str, week_name)
+            #dictA.setdefault(chr_str, week_name)
             dictB.setdefault(week_name, chr_str)
             num -= 1
 
@@ -106,7 +106,7 @@ def write_excel(jsondata, file_name):
             else:
                 break
             worksheet.write(chr_str + '1', week_name)
-            dictA.setdefault(chr_str, week_name)
+            #dictA.setdefault(chr_str, week_name)
             dictB.setdefault(week_name, chr_str)
             num -= 1
 
