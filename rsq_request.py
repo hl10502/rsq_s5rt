@@ -46,20 +46,22 @@ def get_login_session():
 
 
 def get_s5rtdata():
-    try:
-        cookie_res = get_login_session()
-        headers = {"Accept": "application/json, text/plain, */*",
-               "Content-Type": "application/json;charset=UTF-8",
-               "Cookie": cookie_res}
+    for i in range(0, 5):
+        print "获取日事清数据第" + str(i+1) + "次"
+        LOG.debug("获取日事清数据第" + str(i+1) + "次")
+        try:
+            cookie_res = get_login_session()
+            headers = {"Accept": "application/json, text/plain, */*",
+                   "Content-Type": "application/json;charset=UTF-8",
+                   "Cookie": cookie_res}
 
-        # 查询S5跑团数据
-        r = requests.get("https://www.rishiqing.com/task/v2/kanban/376768?_=1490239997146", headers=headers)
-        #print r.status_code
-        jsondata = r.json()
-        #print jsondata
-        #print type(jsondata)
-        LOG.debug("已获取日事清数据")
-        return jsondata
-    except Exception as e1:
-        LOG.error("获取日事清数据失败"  + str(e1))
-        raise
+            # 查询S5跑团数据
+            r = requests.get("https://www.rishiqing.com/task/v2/kanban/376768?_=1490239997146", headers=headers)
+            #print r.status_code
+            jsondata = r.json()
+            #print jsondata
+            #print type(jsondata)
+            LOG.debug("已获取日事清数据")
+            return jsondata
+        except Exception as e1:
+            LOG.error("获取日事清数据失败"  + str(e1))
