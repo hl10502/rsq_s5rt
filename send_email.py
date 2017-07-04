@@ -11,6 +11,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import date
 
+import logging
+LOG = logging.getLogger(__name__)
+
 def send_email(file_name):
     # 第三方 SMTP 服务
     mail_host = "smtp.126.com"  # 设置服务器
@@ -40,14 +43,18 @@ def send_email(file_name):
     for i in range(0, 5):
         try:
             print "邮件发送第" + str(i+1) + "次"
+            LOG.debug("邮件发送第" + str(i+1) + "次")
             smtpObj = smtplib.SMTP()
             smtpObj.connect(mail_host, 25)  # 25 为 SMTP 端口号
             smtpObj.login(mail_user, mail_pass)
             smtpObj.sendmail(sender, receivers, message.as_string())  # 发送邮箱、接收邮箱、邮件内容
             smtpObj.close()
             print "邮件发送成功"
+            LOG.debug("邮件发送成功")
             break
         except smtplib.SMTPException, e:
             print e
-            print "Error: 无法发送邮件"
+            LOG.error("邮件发送失败：" + str(e))
+        except Exception, e1:
+            LOG.error("邮件发送失败:" + str(e1))
 

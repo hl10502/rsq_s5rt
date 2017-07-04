@@ -10,6 +10,9 @@ import urllib
 import urllib2
 import requests
 
+import logging
+LOG = logging.getLogger(__name__)
+
 def get_login_session():
     # 声明一个CookieJar对象实例来保存cookie
     cookie = cookielib.CookieJar()
@@ -31,24 +34,32 @@ def get_login_session():
     result = opener.open(loginUrl, postdata)
 
     cookie_res = ""
+    LOG.debug("获取cookie_res")
     for item in cookie:
         print 'Name = ' + item.name
         print 'Value = ' + item.value
         cookie_res += item.name + "=" + item.value + "; "
-
+    LOG.debug("----------------------------------------------")
+    LOG.debug(cookie_res)
+    LOG.debug("----------------------------------------------")
     return cookie_res
 
 
 def get_s5rtdata():
-    cookie_res = get_login_session()
-    headers = {"Accept": "application/json, text/plain, */*",
-           "Content-Type": "application/json;charset=UTF-8",
-           "Cookie": cookie_res}
+    try:
+        cookie_res = get_login_session()
+        headers = {"Accept": "application/json, text/plain, */*",
+               "Content-Type": "application/json;charset=UTF-8",
+               "Cookie": cookie_res}
 
-    # 查询S5跑团数据
-    r = requests.get("https://www.rishiqing.com/task/v2/kanban/376768?_=1490239997146", headers=headers)
-    #print r.status_code
-    jsondata = r.json()
-    #print jsondata
-    #print type(jsondata)
-    return jsondata
+        # 查询S5跑团数据
+        r = requests.get("https://www.rishiqing.com/task/v2/kanban/376768?_=1490239997146", headers=headers)
+        #print r.status_code
+        jsondata = r.json()
+        #print jsondata
+        #print type(jsondata)
+        LOG.debug("已获取日事清数据")
+        return jsondata
+    except Exception as e1:
+        LOG.error("获取日事清数据失败"  + str(e1))
+        raise
